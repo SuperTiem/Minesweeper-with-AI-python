@@ -3,6 +3,7 @@ import random
 import numpy
 from colorama import init
 from prettytable import PrettyTable
+import tensorflow as tf
 
 init()
 
