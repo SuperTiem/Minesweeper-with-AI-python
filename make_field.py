@@ -3,7 +3,6 @@ import random
 import numpy
 from colorama import init
 from prettytable import PrettyTable
-import tensorflow as tf
 
 init()
 
@@ -53,23 +52,12 @@ def generate_hidden_board(diff):
                         and board[i + x[0]][j + x[1]] != "X"
                     ):
                         board[i + x[0]][j + x[1]] += 1
-    for i in range(len(board)):
-        for j in range(len(board[i])) :
-            print (board[i][j], end=" ")
-        print()
-    print (board[0])
-    print (board)
     return board
 
 board = generate_hidden_board("MEDIUM")
 
 def generate_visible_board(diff): # generate board that is visible for player
     visible_board = [ ["-"] * board_size[diff][0] for i in range(board_size[diff][1]) ]
-    print (visible_board)
-    for i in range(len(board)):
-        for j in range(len(board[i])) :
-            print (visible_board[i][j], end=" ")
-        print()
     return visible_board
 
 visible_board = generate_visible_board("MEDIUM")
@@ -193,7 +181,7 @@ def main():
                 flag = False
 
                 try:
-                    p_choice = input("=> ")
+                    p_choice = input("=> ") # input per round
 
                     move_choice = []
                     if p_choice.upper() == "EXIT":
@@ -201,13 +189,13 @@ def main():
                     else:
                         for i in p_choice:
                             if i != " " and i != "f":
-                                move_choice.append(i)
+                                move_choice.append(i) # add y and x to move_choice
 
                             if i == "f":
-                                flag = True
+                                flag = True # flag or click for click is flag False
 
                     y = int(move_choice[0])
-                    x = int(move_choice[1])
+                    x = int(move_choice[1]) # cordinates
 
                     if not (
                         y < len(player_board)
@@ -220,11 +208,13 @@ def main():
                 except:
                     print("Please only use integers in the specified format!")
                 else:
-                    player_board = move(player_board, hidden_board, y, x, flag)
+
+
+                    player_board = move(player_board, hidden_board, y, x, flag) # do the move.
                     board_print(player_board)
                     var, win = check_win(player_board, hidden_board)
 
-                    if var and win:
+                    if var and win: # check after move if you won or lost.
                         print("You win!\nWell done!")
                         playing = False
                     elif var and not win:
